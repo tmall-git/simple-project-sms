@@ -55,56 +55,11 @@
 		</dependency>
     </dependencies>
     
-    <profiles>
-        <profile>
-            <id>dev</id>
-            <properties>
-                <project.environment>dev</project.environment>
-            </properties>
-            <activation>
-            	<activeByDefault>true</activeByDefault><!-- 这里表示默认环境 -->
-        	</activation>
-        </profile>
-        <profile>
-            <id>product</id>
-            <properties>
-                <project.environment>product</project.environment>
-            </properties>
-        </profile>
-        <profile>
-            <id>test</id>
-            <properties>
-                <project.environment>test</project.environment>
-            </properties>
-        </profile>
-        <profile>
-            <id>uat</id>
-            <properties>
-                <project.environment>uat</project.environment>
-            </properties>
-        </profile>
-    </profiles>
     <properties>
 		  <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
     <build>
         <finalName>simple-project-sms</finalName>
-        <filters>
-            <filter>src/main/resources/config/profile-${project.environment}.properties</filter>
-        </filters>
-        
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-                <includes>
-                    <include>
-                        **/*
-                    </include>
-                </includes>
-            </resource>
-        </resources>
-
         <plugins>
         	<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
