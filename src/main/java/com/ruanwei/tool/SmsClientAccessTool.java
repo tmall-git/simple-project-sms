@@ -149,12 +149,8 @@ public class SmsClientAccessTool {
 	}
 	
 	public static void main(String[] args) {
-		String s = "http://120.26.244.194:8888/sms.aspx?action=send&userid=7830&account=ylxx&password=888888&mobile=18600671341&content=【易代理】验证码:478174退订回n&sendTime=&extno=";
-		try {
-			System.out.println(new String(s.getBytes("UTF-8")));
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		String s = "http://api.kuaidi100.com/api?id=a1aadced81e7f03d&com=shunfeng&nu=950265732230&show=2&muti=1&order=asc";
+		String result = SmsClientAccessTool.getInstance().doAccessHTTPPost("http://api.kuaidi100.com/api", "id=a1aadced81e7f03d&com=shunfeng&nu=950265732230&show=2&muti=1&order=asc", null);
+		System.out.println(result);
 	}
 }
