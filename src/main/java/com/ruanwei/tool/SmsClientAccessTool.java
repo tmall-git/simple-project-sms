@@ -5,8 +5,10 @@ import java.io.BufferedWriter;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 
 /**
  * <p>
@@ -112,7 +114,7 @@ public class SmsClientAccessTool {
 				backEncodType = "UTF-8";
 			}
 
-			URL url = new URL(sendUrl);
+			URL url = new URL(new String(sendUrl.getBytes(backEncodType)));
 			HttpURLConnection URLConn = (HttpURLConnection) url
 					.openConnection();
 
@@ -144,5 +146,15 @@ public class SmsClientAccessTool {
 		}
 
 		return receive.toString();
+	}
+	
+	public static void main(String[] args) {
+		String s = "http://120.26.244.194:8888/sms.aspx?action=send&userid=7830&account=ylxx&password=888888&mobile=18600671341&content=【易代理】验证码:478174退订回n&sendTime=&extno=";
+		try {
+			System.out.println(new String(s.getBytes("UTF-8")));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
