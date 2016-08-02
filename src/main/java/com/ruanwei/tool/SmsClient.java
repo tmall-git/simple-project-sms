@@ -27,7 +27,7 @@ public class SmsClient {
 	}
 	
 	public static void main(String[] args) {
-		SmsResult sr = SmsClient.sendMsg("18600671341", "注册码：7654");
+		SmsResult sr = SmsClient.sendMsg("18600671341", "请联系15210931700发货");
 		System.out.println(sr.getMsg()+">>>"+sr.isSuccess());
 	}
 	
