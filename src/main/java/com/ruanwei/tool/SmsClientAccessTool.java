@@ -10,6 +10,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * <p>
  * <date>2012-03-01</date><br/>
@@ -22,6 +25,8 @@ import java.net.URLEncoder;
  */
 public class SmsClientAccessTool {
 
+	private static final Log log = LogFactory.getLog(SmsClient.class);
+	
 	private static SmsClientAccessTool smsClientToolInstance;
 
 	/**
@@ -101,7 +106,7 @@ public class SmsClientAccessTool {
 				wr = null;
 			}
 		}
-
+		log.info("sendUrl["+sendUrl+"] >>> sendParam["+sendParam+"] >>>> result >>> "+receive.toString());
 		return receive.toString();
 	}
 
@@ -144,7 +149,7 @@ public class SmsClientAccessTool {
 
 			}
 		}
-
+		log.info("sendUrl["+sendUrl+"] >>> result >>> "+receive.toString());
 		return receive.toString();
 	}
 	

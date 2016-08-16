@@ -2,7 +2,13 @@ package com.ruanwei.interfacej;
 
 import java.net.URLEncoder;
 
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
+
 import com.ruanwei.tool.SmsClientAccessTool;
+import com.ruanwei.tool.SmsResult;
 
 /**
  * <p>
@@ -37,7 +43,14 @@ public class SmsClientOverage {
 	 *            ：必填--用户密码
 	 * @return 返回余额查询字符串
 	 */
-	public static String queryOverage(String url, String userid,
+	
+	public static SmsResult queryOverage(String url, String userid,
+			String account, String password) {
+		return getSmsResult(query(url, userid, account, password));
+	}
+	
+	
+	private static String query(String url, String userid,
 			String account, String password) {
 
 		try {
@@ -55,5 +68,42 @@ public class SmsClientOverage {
 			e.printStackTrace();
 			return "未发送，异常-->" + e.getMessage();
 		}
+	}
+	
+	private static SmsResult getSmsResult(String result) {
+		SmsResult sr = new SmsResult();
+		try {
+			Document document = DocumentHelper.parseText(result);
+			Element root = document.getRootElement(); 
+			Element status = root.element("returnstatus");
+			if ("success".equals(status.getText().toLowerCase()) || "sucess".equals(status.getText().toLowerCase())) {
+				sr.setSuccess(true);
+				StringBuffer sb = new StringBuffer();
+				Element payinfo = root.element("payinfo");
+				if ( null != payinfo) {
+					sb.append("支付方式:"+payinfo.getText());
+				}
+				Element overage = root.element("overage");
+				if ( null != overage) {
+					sb.append(" 余额:"+overage.getText());
+					sr.setData(overage.getText());
+				}
+				Element sendTotal = root.element("sendTotal");
+				if ( null != sendTotal) {
+					sb.append(" 总点数:"+sendTotal.getText());
+				}
+				sr.setMsg(sb.toString());
+			}else {
+				sr.setSuccess(false);
+				Element message = root.element("message");
+				sr.setMsg(message.getText());
+			}
+			return sr;
+		} catch (DocumentException e) {
+			e.printStackTrace();
+			sr.setSuccess(false);
+			sr.setMsg(e.getLocalizedMessage());
+		}  
+		return sr;
 	}
 }
