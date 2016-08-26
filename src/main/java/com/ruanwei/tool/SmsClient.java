@@ -29,7 +29,7 @@ public class SmsClient {
 		StringBuffer sb = new StringBuffer();
 		sb.append("action=send&userid=").append(SEND_USER_ID).append("&account=").append(SEND_ACCOUNT)
 		.append("&password=").append(SEND_PASSWORD).append("&mobile=").append(phone)
-		.append("&content=").append("【易代理】").append(content).append("&sendTime=&extno=");
+		.append("&content=").append("【易代销】").append(content).append("&sendTime=&extno=");
 		return sb.toString();
 	}
 	
